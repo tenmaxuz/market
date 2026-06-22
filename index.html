@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tenmax - Каталог умных устройств</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Переменные темы --- */
+        :root {
+            --accent-color: #EF7334;
+            --accent-hover: #e06020;
+            --brand-gradient: linear-gradient(145deg, #EAA786, #D07F5A);
+            --card-bg: #fff;  /*#FFF0E8*/
+            --text-dark: #333333;
+            --text-light: #FFFFFF;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        /* --- ВЕРХНЯЯ СЕКЦИЯ --- */
+        .top-wrapper {
+            position: relative;
+            background: linear-gradient(0deg, rgba(255,255,255,0.85), rgba(255,255,255,0.85)), 
+                        url('https://images.unsplash.com/photo-1468495244123-6c6c332eeece?q=80&w=1000') no-repeat center center;
+            background-size: cover;
+            padding-bottom: 90px;
+        }
+
+        .navbar {
+            padding: 20px 0;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-dark) !important;
+        }
+
+        .navbar-brand img {
+            height: 45px;
+            border-radius: 12px;
+        }
+
+        .nav-link {
+            color: var(--text-dark) !important;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-left: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color) !important;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 90px 0 30px;
+            color: var(--text-dark);
+        }
+
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: #555555;
+            line-height: 1.6;
+        }
+
+        .btn-hero {
+            background-color: var(--accent-color);
+            color: var(--text-light);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            padding: 16px 45px;
+            border-radius: 35px;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 10px 25px rgba(239, 115, 52, 0.35);
+            transition: all 0.3s ease;
+        }
+
+        .btn-hero:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(239, 115, 52, 0.5);
+            background-color: var(--accent-hover);
+            color: var(--text-light);
+        }
+
+        /* --- СЕКЦИЯ КАТАЛОГА --- */
+        .catalog-section {
+            background: var(--brand-gradient);
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 2.8rem;
+            color: var(--text-light);
+            margin-bottom: 60px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Увеличенные отступы (g-5 вместо g-4) */
+        .product-card {
+            background-color: var(--card-bg);
+            border-radius: 40px;
+            padding: 40px 30px; /* Чуть увеличены внутренние отступы, чтобы карточка казалась больше */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
+            border: none;
+            height: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
+        }
+
+        .card-img-wrapper {
+            width: 100%;
+            height: 260px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .card-img-wrapper img {
+            max-width: 85%;
+            max-height: 100%;
+            object-fit: contain;
+            /* filter: drop-shadow(0 15px 20px rgba(0, 0, 0, 0.15)); */
+        }
+
+        .card-product-title {
+            color: var(--text-dark);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        /* Стили для цены */
+        .card-price {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .btn-product {
+            background-color: var(--accent-color);
+            color: var(--text-light);
+            border: none;
+            padding: 14px 0;
+            font-size: 1.25rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            border-radius: 35px;
+            width: 90%;
+            margin-top: auto;
+            /* Легкая тень для кнопки, как заказывал */
+            box-shadow: 0 8px 20px rgba(239, 115, 52, 0.4);
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .btn-product:hover {
+            background-color: var(--accent-hover);
+            transform: scale(1.03);
+            box-shadow: 0 12px 25px rgba(239, 115, 52, 0.5);
+            color: var(--text-light);
+        }
+
+        /* Кнопка загрузки еще товаров */
+        .btn-load-more {
+            background-color: var(--text-light);
+            color: var(--accent-color);
+            border: none;
+            padding: 15px 50px;
+            font-size: 1.2rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            border-radius: 35px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            margin-top: 50px;
+            cursor: pointer;
+        }
+
+        .btn-load-more:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            background-color: #fdfdfd;
+        }
+
+        /* Скрытие дополнительных товаров */
+        .extra-products {
+            display: none;
+        }
+
+        /* --- СЕКЦИЯ ДОСТАВКИ --- */
+        .delivery-section {
+            background-color: #ffffff; /* Светлый фон для контраста с каталогом */
+            padding: 100px 0;
+        }
+
+        .delivery-img-wrapper img {
+            width: 100%;
+            border-radius: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            object-fit: cover;
+            height: 100%;
+            min-height: 400px;
+        }
+
+        .delivery-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            padding: 20px 40px;
+        }
+
+        .delivery-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 2.5rem;
+            color: var(--text-dark);
+            margin-bottom: 25px;
+        }
+
+        .delivery-text {
+            font-size: 1.2rem;
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .delivery-highlight {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        /* --- ПОДВАЛ --- */
+        .footer {
+            background-color: #f8f9fa;
+            padding: 35px 0;
+            text-align: center;
+            color: #666666;
+            font-weight: 600;
+            border-top: 1px solid #eeeeee;
+        }
+
+        /* Адаптив */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.3rem; }
+            .hero p { font-size: 1.1rem; }
+            .delivery-content { padding: 40px 15px 0; text-align: center; }
+            .delivery-img-wrapper img { min-height: 250px; }
+            .navbar-collapse {
+                background: rgba(255, 255, 255, 0.95);
+                padding: 20px;
+                border-radius: 20px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                margin-top: 15px;
+            }
+            .nav-link { margin-left: 0; margin-bottom: 12px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-wrapper">
+        <div class="container">
+            
+            <nav class="navbar navbar-expand-md navbar-light">
+                <div class="container-fluid p-0">
+                    <a class="navbar-brand" href="#">
+                        <img src="logo_tenmaxx.png" alt="">
+                        
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainMenu">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="mainMenu">
+                        <div class="navbar-nav">
+                            <a class="nav-link" href="#">Главная</a>
+                            <a class="nav-link" href="#catalog">Каталог</a>
+                            <a class="nav-link" href="#delivery">Доставка</a>
+                            <a class="nav-link" href="#">Контакты</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <header class="hero">
+                <h1>Добро пожаловать в Tenmax</h1>
+                <p>Откройте для себя мир современных технологий. Мы предлагаем лучшие гаджеты с передовым дизайном и функционалом для вашего комфорта и стиля.</p>
+                <a href="#catalog" class="btn-hero">Посмотреть товары</a>
+            </header>
+
+        </div>
+    </div>
+
+    <section class="catalog-section" id="catalog">
+        <div class="container">
+            <h2 class="section-title text-center">Наш Каталог</h2>
+            
+            <div class="row g-5 justify-content-center" id="productsGrid">
+                
+                <div class="col-12 col-md-6 col-lg-4 product-item">
+                    <div class="product-card">
+                        <div class="card-img-wrapper">
+                            <img src="img/p1i1.jpg" alt="Mi Band 10">
+                        </div>
+                        <h3 class="card-product-title">Watch 11 Series</h3>
+                        <p class="card-price">280 000 сум</p>
+                        <a href="product.html?id=1" class="btn-product">Подробнее</a>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4 product-item">
+                    <div class="product-card">
+                        <div class="card-img-wrapper">
+                            <img src="img/p2i1.jpg" alt="Mi Band 10 Pro">
+                        </div>
+                        <h3 class="card-product-title">AirPods Pro</h3>
+                        <p class="card-price">120 000 сум</p>
+                        <a href="product.html?id=2" class="btn-product">Подробнее</a>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4 product-item">
+                    <div class="product-card">
+                        <div class="card-img-wrapper">
+                            <img src="img/p3i1.jpg" alt="Mi Band 10 Active">
+                        </div>
+                        <h3 class="card-product-title">AirPods Max</h3>
+                        <p class="card-price">320 000 сум</p>
+                        <a href="product.html?id=3" class="btn-product">Подробнее</a>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4 product-item">
+                    <div class="product-card">
+                        <div class="card-img-wrapper">
+                            <img src="img/p4i1.jpg" alt="Смарт-часы Tenmax">
+                        </div>
+                        <h3 class="card-product-title">Mi Band 10</h3>
+                        <p class="card-price">670 000 сум</p>
+                        <a href="product.html?id=4" class="btn-product">Подробнее</a>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4 product-item">
+                    <div class="product-card">
+                        <div class="card-img-wrapper">
+                            <img src="img/p5i1.jpg" alt="Смарт-часы Tenmax">
+                        </div>
+                        <h3 class="card-product-title">HK 11 Pro Max</h3>
+                        <p class="card-price">380 000 сум</p>
+                        <a href="product.html?id=5" class="btn-product">Подробнее</a>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4 product-item">
+                    <div class="product-card">
+                        <div class="card-img-wrapper">
+                            <img src="img/p6i1.jpg" alt="Tenmax Fit">
+                        </div>
+                        <h3 class="card-product-title">Valdus фитнес браслет</h3>
+                        <p class="card-price">350 000 сум</p>
+                        <a href="product.html?id=6" class="btn-product">Подробнее</a>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4 product-item extra-products">
+                    <div class="product-card">
+                        <div class="card-img-wrapper"><img src="https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1663749390.06317129.png" alt="Товар 7"></div>
+                        <h3 class="card-product-title">PowerBank 10000</h3>
+                        <p class="card-price">180 000 сум</p>
+                        <a href="#" class="btn-product">Подробнее</a>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 product-item extra-products">
+                    <div class="product-card">
+                        <div class="card-img-wrapper"><img src="https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1663749390.06317129.png" alt="Товар 8"></div>
+                        <h3 class="card-product-title">Зарядная станция</h3>
+                        <p class="card-price">850 000 сум</p>
+                        <a href="#" class="btn-product">Подробнее</a>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 product-item extra-products">
+                    <div class="product-card">
+                        <div class="card-img-wrapper"><img src="https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1663749390.06317129.png" alt="Товар 9"></div>
+                        <h3 class="card-product-title">Умные весы</h3>
+                        <p class="card-price">320 000 сум</p>
+                        <a href="#" class="btn-product">Подробнее</a>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 product-item extra-products">
+                    <div class="product-card">
+                        <div class="card-img-wrapper"><img src="https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1663749390.06317129.png" alt="Товар 10"></div>
+                        <h3 class="card-product-title">Умная колонка</h3>
+                        <p class="card-price">950 000 сум</p>
+                        <a href="#" class="btn-product">Подробнее</a>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 product-item extra-products">
+                    <div class="product-card">
+                        <div class="card-img-wrapper"><img src="https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1663749390.06317129.png" alt="Товар 11"></div>
+                        <h3 class="card-product-title">Наушники Pro Max</h3>
+                        <p class="card-price">650 000 сум</p>
+                        <a href="#" class="btn-product">Подробнее</a>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 product-item extra-products">
+                    <div class="product-card">
+                        <div class="card-img-wrapper"><img src="https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1663749390.06317129.png" alt="Товар 12"></div>
+                        <h3 class="card-product-title">Mi Band 10 Elite</h3>
+                        <p class="card-price">700 000 сум</p>
+                        <a href="#" class="btn-product">Подробнее</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="text-center">
+                <button id="loadMoreBtn" class="btn-load-more">Показать больше товаров</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="delivery-section" id="delivery">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12 col-lg-6 mb-4 mb-lg-0">
+                    <div class="delivery-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1580674285054-bed31e145f59?q=80&w=1000" alt="Доставка Tenmax">
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div class="delivery-content">
+                        <h2 class="delivery-title">Быстрая и надежная доставка</h2>
+                        <p class="delivery-text">Мы заботимся о том, чтобы вы получили свои гаджеты как можно скорее. Осуществляем доставку по всему <span class="delivery-highlight">Узбекистану</span> через самые популярные и надежные почтовые службы.</p>
+                        <p class="delivery-text">Живете в столице? Отлично! В городе <span class="delivery-highlight">Ташкент</span> мы доставляем заказы прямо до вашей двери <span class="delivery-highlight">в день оформления</span> заказа нашим собственным курьером.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="m-0">&copy; 2026 tenmax. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            const extraProducts = document.querySelectorAll('.extra-products');
+
+            loadMoreBtn.addEventListener('click', function() {
+                // Показываем скрытые карточки плавно
+                extraProducts.forEach(function(item) {
+                    item.style.display = 'block';
+                    // Небольшой таймаут для плавного появления (анимация opacity если добавить в CSS)
+                    setTimeout(() => item.style.opacity = '1', 10);
+                });
+                // Скрываем саму кнопку
+                loadMoreBtn.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
